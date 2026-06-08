@@ -24,7 +24,7 @@ This repository implements a Conditional Quantum Diffusion Denoising (CQDD) mode
   - Rotated ring configurations
 
 ## Web deployment
-A trained version of the model with three examples is presented in an interactive web at the repository dagadd0/QML-CQDDapp
+A trained version of the model with three examples is presented in an interactive web at the repository [dagadd0/QML-CQDDapp](https://github.com/dagadd0/QML-CQDDapp) or [deployed web version](https://cqddapp.streamlit.app/).
 
 
 ## Project Structure
