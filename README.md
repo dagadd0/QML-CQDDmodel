@@ -14,7 +14,7 @@ This repository implements a Conditional Quantum Diffusion Denoising (CQDD) mode
 
 ✨ **Continuous Conditioning**: Generate quantum states for unseen conditioning parameters through learned interpolation
 
-🎯 **Low Generalization Error**: Achieves testing errors below 0.4% for unseen conditioning parameters, significantly outperforming previous approaches
+🎯 **Low Generalization Error**: Achieves low testing errors for unseen conditioning parameters
 
 ⚡ **JAX + TensorCircuit Integration**: High-performance quantum circuit simulation with automatic differentiation and JIT compilation
 
@@ -22,6 +22,10 @@ This repository implements a Conditional Quantum Diffusion Denoising (CQDD) mode
   - Polar points on the Bloch sphere
   - Parallel ring structures
   - Rotated ring configurations
+
+## Web deployment
+A trained version of the model with three examples is presented in an interactive web at the repository dagadd0/QML-CQDDapp
+
 
 ## Project Structure
 
@@ -73,7 +77,6 @@ pip install jax[cuda12]
 ### Training on Polar Points Distribution
 
 ```bash
-cd "Cluster states"
 python cqdd_polarpoints_v6.py
 ```
 
@@ -86,7 +89,6 @@ This script:
 ### Training on Ring Structures
 
 ```bash
-cd Rings
 python cqdd_rings_v3.py
 ```
 
@@ -100,6 +102,7 @@ python Testing_unseen1D.py
 ```
 
 Evaluates model generalization on conditioning parameters not seen during training.
+- Heatmaps of generalization error
 
 ### Visualization
 
@@ -110,59 +113,13 @@ python ploting.py
 Generates visualizations including:
 - Bloch sphere representations
 - Loss curves during training
-- Heatmaps of generalization error
-- Denoising and scrambling process snapshots
 
-## Model Architecture
-
-### Quantum Circuit Parameters
-
-| Parameter | Value | Description |
-|-----------|-------|-------------|
-| Qubits | 3 | Total qubits (1 data + 2 ancilla) |
-| Ancilla | 2 | Measurement ancillas |
-| Data Qubits | 1 | Information-carrying qubits |
-| Denoising Steps (T) | 20 | Forward/backward diffusion steps |
-| Layers (L) | 12 | PQC layers per denoising step |
-| States (N) | 500 | Distribution size |
 
 ### Conditioning Parameters
 
 The model is conditioned on angles μ = (μ₁, μ₂) ∈ [0,π] × [0,2π] representing:
 - μ₁: Polar angle on Bloch sphere
 - μ₂: Azimuthal angle on Bloch sphere
-
-## Results
-
-### Polar Points
-- **Training Error**: ~10⁻⁵ - 10⁻⁴
-- **Testing Error (Unseen)**: ~0.4% (MMD normalized)
-- **Improvement over baselines**: ~20x reduction compared to Quinn et al. (0.8% - 6.4%)
-
-### Ring Structures
-- Stable generalization across conditioning parameter space
-- Error increases at poles due to state collapse
-- Smooth interpolation between trained points
-
-## Key Metrics
-
-The model uses **Maximum Mean Discrepancy (MMD)** with fidelity kernel to measure distance between quantum state distributions:
-
-```
-MMD(X, Y) = 2⟨K(X,Y)⟩ - ⟨K(X,X)⟩ - ⟨K(Y,Y)⟩
-```
-
-where K(ψ,φ) = |⟨ψ|φ⟩|² (fidelity kernel)
-
-## Training Configuration
-
-```python
-Nopt_loops = 1000          # Optimization loops per denoising step
-learning_rate = 0.01       # Adam optimizer learning rate
-optimizer = optax.adam     # Gradient-based optimization
-schedule = "quadratic"     # Noise schedule: linear/exponential/quadratic
-epsilon = 0.08            # Initial noise level for distributions
-```
 
 ## Output Files
 
@@ -176,11 +133,6 @@ After training, the following files are saved:
 - `best_losses_target.npy`: Loss relative to target distributions
 - `*.png`, `*.pdf`: Visualization outputs (Bloch spheres, loss curves, heatmaps)
 
-## Performance Notes
-
-- **Memory**: ~2-4 GB GPU memory for standard configuration
-- **Training Time**: ~4-8 hours per full run (20 denoising steps)
-- **JAX Compilation**: First run includes JIT compilation overhead
 
 ## Methodology
 
@@ -194,26 +146,6 @@ The CQDD model implements a quantum generative process:
 
 See the included research paper/thesis for detailed theoretical foundation.
 
-## References
-
-The implementation is based on quantum diffusion models and conditional generation techniques:
-
-- Tensor Network Diffusion for Quantum State Generation
-- Quantum Machine Learning: Classical vs Quantum Approaches
-- Variational Quantum Algorithms for State Preparation
-
-## Contributing
-
-Contributions are welcome! Please feel free to:
-- Report bugs or issues
-- Suggest improvements
-- Submit pull requests
-
-## Contact
-
-For questions or collaboration inquiries, please reach out via GitHub Issues.
-
----
 
 **Status**: Active Development
 **Last Updated**: June 2026
