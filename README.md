@@ -4,7 +4,7 @@ A quantum machine learning framework for learning and generating distributions o
 
 ## Overview
 
-This repository implements a Conditional Quantum Diffusion Denoising (CQDD) model that leverages quantum computing to prepare, characterize, and manipulate quantum states. The model combines:
+This repository implements a Conditional Quantum Diffusion Denoising (CQDD) model to prepare, characterize, and manipulate quantum states. The model combines:
 
 - **Forward Diffusion Process**: Transforms structured quantum state distributions into Haar-random distributions using quantum scrambling circuits
 - **Backward Denoising Process**: Reconstructs the original distributions from noisy states using parametrized quantum circuits (PQC)
@@ -58,19 +58,6 @@ A trained version of the model with three examples is presented in an interactiv
 - Optax
 - NumPy
 
-### Setup
-
-```bash
-# Clone the repository
-git clone https://github.com/your-username/CQDD.git
-cd CQDD
-
-# Install dependencies
-pip install tensorcircuit jax jaxlib optax numpy matplotlib
-
-# For GPU acceleration (optional)
-pip install jax[cuda12]
-```
 
 ## Usage
 
@@ -111,7 +98,6 @@ python ploting.py
 ```
 
 Generates visualizations including:
-- Bloch sphere representations
 - Loss curves during training
 
 
