@@ -306,10 +306,10 @@ def measure_ancillas_single(key, state, na, n):
     """
     # Separar ancilla y sistema
     reshaped = jnp.reshape(state, (2**n, 2**na))
-    probs = jnp.sum(jnp.abs(reshaped) ** 2, axis=0)  # suma sobre dato → probs ancilla, shape (4,)
+    probs = jnp.sum(jnp.abs(reshaped) ** 2, axis=0)  
     key, subkey = jax.random.split(key)
     m_res = jax.random.categorical(subkey, jnp.log(probs + 1e-12))
-    post_state = reshaped[:, m_res]               # dato post-medición, shape (2,) ✓
+    post_state = reshaped[:, m_res] 
     norm = jnp.linalg.norm(post_state)
     return post_state / (norm + 1e-12)
 
@@ -501,7 +501,7 @@ np.save("bck_distr.npy",np.array(bck_distr))
 np.save("losses_t.npy",np.array(all_losses_t))
 np.save("losses_target.npy", np.array(all_losses_target)) 
 np.save("best_losses_t.npy", np.array(best_loss_per_step)) 
-np.save("all_input.npy",         np.array(all_input))          # <-- nuevo
+np.save("all_input.npy",         np.array(all_input)) 
 np.save("conditioning_params.npy", np.array(mus))      
 
 
